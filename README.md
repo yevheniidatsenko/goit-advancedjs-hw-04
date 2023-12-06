@@ -1,113 +1,125 @@
-# Vanilla App Template
+# Image Search Application
 
-Цей проект було створено за допомогою Vite. Для знайомства та налаштування
-додаткових можливостей [звернись до документації](https://vitejs.dev/).
+This project is a frontend application that enables users to search and view
+images based on keywords. It utilizes the Pixabay API for fetching images, and
+the interface is designed to be user-friendly and responsive.
 
-## Створення репозиторію за шаблоном
+## Search Form
 
-Використовуй цей репозиторій організації GoIT як шаблон для створення
-репозиторію свого проекту. Для цього натисни на кнопку `«Use this template»` і
-обери опцію `«Create a new repository»`, як показано на зображенні.
+The search form is implemented using HTML and includes a text input field for
+users to enter search queries. Upon form submission, an HTTP request is made to
+the Pixabay API.
 
-![Creating repo from a template step 1](./assets/template-step-1.png)
-
-На наступному етапі відкриється сторінка створення нового репозиторію. Заповни
-поле його імені, переконайся, що репозиторій публічний, після чого натисни
-кнопку `«Create repository from template»`.
-
-![Creating repo from a template step 2](./assets/template-step-2.png)
-
-Після того, як репозиторій буде створено, необхідно перейти в налаштування
-створеного репозиторію на вкладку `Settings` > `Actions` > `General` як показано
-на зображенні.
-
-![Settings GitHub Actions permissions step 1](./assets/gh-actions-perm-1.png)
-
-Проскроливши сторінку до самого кінця, в секції `«Workflow permissions»` обери
-опцію `«Read and write permissions»` і постав галочку в чекбоксі. Це необхідно
-для автоматизації процесу деплою проекту.
-
-![Settings GitHub Actions permissions step 2](./assets/gh-actions-perm-2.png)
-
-Тепер у тебе є особистий репозиторій проекту, зі структурою файлів та папок
-репозиторію-шаблону. Далі працюй з ним, як з будь-яким іншим особистим
-репозиторієм, клонуй його собі на комп'ютер, пиши код, роби коміти та відправляй
-їх на GitHub.
-
-## Підготовка до роботи
-
-1. Переконайся, що на комп'ютері встановлено LTS-версію Node.js.
-   [Скачай та встанови](https://nodejs.org/en/) її якщо необхідно.
-2. Встанови базові залежності проекту в терміналі командою `npm install`.
-3. Запусти режим розробки, виконавши в терміналі команду `npm run dev`.
-4. Перейдіть у браузері за адресою
-   [http://localhost:5173](http://localhost:5173). Ця сторінка буде автоматично
-   перезавантажуватись після збереження змін у файли проекту.
-
-## Файли і папки
-
-- Файли розмітки компонентів сторінки повинні лежати в папці `src/partials` та
-  імпортуватись до файлу `index.html`. Наприклад, файл з розміткою хедера
-  `header.html` створюємо у папці `partials` та імпортуємо в `index.html`.
-- Файли стилів повинні лежати в папці `src/css` та імпортуватись до HTML-файлів
-  сторінок. Наприклад, для `index.html` файл стилів називається `index.css`.
-- Зображення додавай до папки `src/img`. Збирач оптимізує їх, але тільки при
-  деплої продакшн версії проекту. Все це відбувається у хмарі, щоб не
-  навантажувати твій комп'ютер, тому що на слабких компʼютерах це може зайняти
-  багато часу.
-
-## Деплой
-
-Продакшн версія проекту буде автоматично збиратися та деплоїтись на GitHub
-Pages, у гілку `gh-pages`, щоразу, коли оновлюється гілка `main`. Наприклад,
-після прямого пуша або прийнятого пул-реквесту. Для цього необхідно у файлі
-`package.json` змінити значення прапора `--base=/<REPO>/`, для команди `build`,
-замінивши `<REPO>` на назву свого репозиторію, та відправити зміни на GitHub.
-
-```json
-"build": "vite build --base=/<REPO>/",
+```html
+<form class="search-form" id="search-form">
+  <input
+    type="text"
+    name="searchQuery"
+    autocomplete="off"
+    placeholder="Search images..."
+  />
+  <button type="submit">Search</button>
+</form>
 ```
 
-Далі необхідно зайти в налаштування GitHub-репозиторію (`Settings` > `Pages`) та
-виставити роздачу продакшн версії файлів з папки `/root` гілки `gh-pages`, якщо
-це не було зроблено автоматично.
+## Pixabay API Requests
 
-![GitHub Pages settings](./assets/repo-settings.png)
+The frontend communicates with the Pixabay backend through HTTP requests. The
+required parameters for the API request include the user's API key, search query
+(`q`), image type (`image_type`), orientation (`orientation`), and safe search
+(`safesearch`).
 
-### Статус деплою
+The response from the backend includes an array of images, each described by
+properties such as `webformatURL`, `largeImageURL`, `tags`, `likes`, `views`,
+`comments`, and `downloads`. If the backend returns an empty array, a
+notification is displayed with the message "Sorry, there are no images matching
+your search query. Please try again."
 
-Статус деплою крайнього коміту відображається іконкою біля його ідентифікатора.
+## Gallery and Image Cards
 
-- **Жовтий колір** - виконується збірка та деплой проекту.
-- **Зелений колір** - деплой завершився успішно.
-- **Червоний колір** - під час лінтингу, збірки чи деплою сталася помилка.
+The image gallery is represented by the HTML element `<div class="gallery">`.
+The gallery is dynamically populated with image cards during the search. To
+avoid mixing results from different searches, the gallery's content is cleared
+with each new search.
 
-Більш детальну інформацію про статус можна переглянути натиснувши на іконку, і в
-вікні, що випадає, перейти за посиланням `Details`.
+```html
+<div class="gallery">
+  <!-- Image cards dynamically rendered here -->
+</div>
+```
 
-![Deployment status](./assets/deploy-status.png)
+The template for each image card is defined as follows:
 
-### Жива сторінка
+```html
+<div class="photo-card">
+  <img src="" alt="" loading="lazy" />
+  <div class="info">
+    <p class="info-item"><b>Likes</b></p>
+    <p class="info-item"><b>Views</b></p>
+    <p class="info-item"><b>Comments</b></p>
+    <p class="info-item"><b>Downloads</b></p>
+  </div>
+</div>
+```
 
-Через якийсь час, зазвичай кілька хвилин, живу сторінку можна буде подивитися за
-адресою, вказаною на вкладці `Settings` > `Pages` в налаштуваннях репозиторію.
-Наприклад, ось посилання на живу версію для цього репозиторію
+## Pagination
 
-[https://goitacademy.github.io/vanilla-app-template/](https://goitacademy.github.io/vanilla-app-template/).
+The Pixabay API supports pagination with parameters `page` and `per_page`. Each
+response contains 40 images by default. The initial value of the `page`
+parameter is 1, and it is incremented with each subsequent request. When
+searching with a new keyword, the `page` value is reset to 1.
 
-Якщо відкриється порожня сторінка, переконайся, що у вкладці `Console` немає
-помилок пов'язаних з неправильними шляхами до CSS та JS файлів проекту
-(**404**). Швидше за все у тебе неправильне значення прапора `--base` для
-команди `build` у файлі `package.json`.
+A "Load more" button is provided in the HTML document to fetch the next group of
+images. Initially hidden, the button becomes visible after the first search. It
+is hidden again upon submitting a new search query.
 
-## Як це працює
+If the backend response includes the property `totalHits`, indicating the total
+number of matching images (for free accounts), and the user reaches the end of
+the collection, the button is hidden, and a message is displayed: "We're sorry,
+but you've reached the end of search results."
 
-![How it works](./assets/how-it-works.png)
+## Additional Functionality
 
-1. Після кожного пуша у гілку `main` GitHub-репозиторію, запускається
-   спеціальний скрипт (GitHub Action) із файлу `.github/workflows/deploy.yml`.
-2. Усі файли репозиторію копіюються на сервер, де проект ініціалізується та
-   проходить лінтинг та збірку перед деплоєм.
-3. Якщо всі кроки пройшли успішно, зібрана продакшн версія файлів проекту
-   відправляється у гілку `gh-pages`. В іншому випадку, у лозі виконання скрипта
-   буде вказано в чому проблема.
+### Notifications
+
+After the initial search, a notification is displayed with the message "Hooray!
+We found totalHits images." The `totalHits` property is obtained from the
+backend response.
+
+### SimpleLightbox Integration (Optional)
+
+To enhance the gallery experience, a larger version of the images can be
+displayed using the SimpleLightbox library. Each image card is wrapped in a
+link, and the library's `refresh()` method is called after adding a new group of
+image cards.
+
+```javascript
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
+```
+
+### Smooth Page Scrolling
+
+After each request and display of a new group of images, the page smoothly
+scrolls to the newly loaded images. The provided code snippet achieves this
+effect.
+
+```javascript
+const { height: cardHeight } = document
+  .querySelector('.gallery')
+  .firstElementChild.getBoundingClientRect();
+
+window.scrollBy({
+  top: cardHeight * 2,
+  behavior: 'smooth',
+});
+```
+
+### Infinite Scroll (Optional)
+
+Instead of the "Load more" button, infinite scrolling can be implemented to
+dynamically load more images as the user scrolls down. The specific
+implementation can utilize various libraries or custom JavaScript solutions.
+
+Feel free to customize this README according to your project's details and
+preferences.
