@@ -1,24 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vanilla App Template</title>
+    <link rel="shortcut icon" href="./img/icon_search.png" />
+    <title>Visual Finder</title>
+    <link rel="preconnect" href="https://fonts.macpaw.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.macpaw.com/css?family=FixelVariable">
     <link rel="stylesheet" href="./css/styles.css" />
-  </head>
-  <body>
-    <load ="partials/header.html" />
+</head>
 
+<body>
+    <form id="search-form">
+        <div class="input__container">
+            <div class="shadow__input"></div>
+            <button class="input__button__shadow">
+                <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" height="20px" width="20px">
+                    <path
+                        d="M4 9a5 5 0 1110 0A5 5 0 014 9zm5-7a7 7 0 104.2 12.6.999.999 0 00.093.107l3 3a1 1 0 001.414-1.414l-3-3a.999.999 0 00-.107-.093A7 7 0 009 2z"
+                        fill-rule="evenodd" fill="#17202A"></path>
+                </svg>
+            </button>
+            <input type="text" name="searchQuery" class="search-form-input" autocomplete="off"
+                placeholder="What do you want to search?">
+        </div>
+    </form>
+    </header>
     <section>
-      <h1>Lorem ipsum dolor sit amet.</h1>
-      <!-- Path to images as from index.html file -->
-      <img src="./img/javascript.svg" alt="" />
+        <ul class="gallery"></ul>
+
+        <div class="is-hidden finish-text">
+            We're sorry, but you've reached the end of search results.
+        </div>
+        <div class="js-guard"></div>
     </section>
 
-    <!-- Loads the specified .html file -->
-    <load ="partials/vite-promo.html" />
+    <script type="module" src="./index.js"></script>
+</body>
 
-    <script type="module" src="/main.js"></script>
-  </body>
 </html>
