@@ -1,85 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vanilla-app-template/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vanilla App Template</title>
+    <link rel="shortcut icon" href="./img/icon_search.png" />
+    <title>Visual Finder</title>
+    <link rel="preconnect" href="https://fonts.macpaw.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.macpaw.com/css?family=FixelVariable">
     
-    <script type="module" crossorigin src="/vanilla-app-template/commonHelpers.js"></script>
-    <link rel="stylesheet" href="/vanilla-app-template/assets/index-10c40100.css">
-  </head>
-  <body>
-    <header class="header">
-  <nav class="nav">
-    <ul class="nav-list">
-      <li class="nav-item">
-        <a href="./page-2.html" class="nav-link">Page 2</a>
-      </li>
+  <script type="module" crossorigin src="/goit-advancedjs-hw-04/commonHelpers.js"></script>
+  <link rel="modulepreload" crossorigin href="/goit-advancedjs-hw-04/assets/vendor-30bfe4fa.js">
+  <link rel="stylesheet" href="/goit-advancedjs-hw-04/assets/vendor-a51daae5.css">
+  <link rel="stylesheet" href="/goit-advancedjs-hw-04/assets/index-7d0dc0f3.css">
+</head>
 
-      <li class="nav-item">
-        <a href="./page-3.html" class="nav-link">Page 3</a>
-      </li>
-    </ul>
-  </nav>
-</header>
-
-
+<body>
+    <form id="search-form">
+        <div class="input__container">
+            <div class="shadow__input"></div>
+            <button class="input__button__shadow">
+                <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" height="20px" width="20px">
+                    <path
+                        d="M4 9a5 5 0 1110 0A5 5 0 014 9zm5-7a7 7 0 104.2 12.6.999.999 0 00.093.107l3 3a1 1 0 001.414-1.414l-3-3a.999.999 0 00-.107-.093A7 7 0 009 2z"
+                        fill-rule="evenodd" fill="#17202A"></path>
+                </svg>
+            </button>
+            <input type="text" name="searchQuery" class="search-form-input" autocomplete="off"
+                placeholder="What do you want to search?">
+        </div>
+    </form>
+    </header>
     <section>
-      <h1>Lorem ipsum dolor sit amet.</h1>
-      <!-- Path to images as from index.html file -->
-      <img src="/vanilla-app-template/assets/javascript-8dac5379.svg" alt="" />
+        <ul class="gallery"></ul>
+
+        <div class="is-hidden finish-text">
+            We're sorry, but you've reached the end of search results.
+        </div>
+        <div class="js-guard"></div>
     </section>
 
-    <!-- Loads the specified .html file -->
-    <section class="vite-promo">
-  <div class="container">
-    <div class="wrapper">
-      <h2 class="title">
-        <span class="gradient">Vite</span>
-      </h2>
-      <p class="text">Next Generation Frontend Tooling</p>
-      <p class="tagline">
-        Get ready for a development environment that can finally catch up with
-        you.
-      </p>
-
-      <ul class="actions">
-        <li class="action">
-          <a
-            class="link"
-            href="https://vitejs.dev/guide/"
-            target="_blank"
-            rel="noopener noreferrer"
-            >Get Started</a
-          >
-        </li>
-        <li class="action">
-          <a
-            class="link"
-            href="https://github.com/vitejs/vite"
-            target="_blank"
-            rel="noopener noreferrer"
-            >View on GitHub</a
-          >
-        </li>
-      </ul>
-    </div>
-
-    <div class="thumb">
-      <!-- Path to images as from index.html file -->
-      <img
-        class="pic"
-        src="/vanilla-app-template/assets/vite-logo-51249ca9.png"
-        alt="Vite logo"
-        width="640"
-        height="640"
-      />
-    </div>
-  </div>
-</section>
-
-
     
-  </body>
+</body>
+
 </html>
